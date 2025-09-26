@@ -189,6 +189,7 @@ cp /ca/pki/private/mail.eurobsdcon.lab.key .
 set +e
 pkg info | grep ca_root_nss > /dev/null
 if [ "0" != "$?" ]; then
+    # TODO clean up, use set -e
     pkg install -y ca_root_nss
 fi
 set -e
@@ -215,12 +216,14 @@ fi
 
 # wait for unbound to complete booting
 set +e
+# TODO need to use variable
 await_ip 10.193.167.10
 set -e
 
 # ssh_copy moved to utils.sh
 
 ssh_copy mailsrv/01_setup_unbound.sh 10
+# TODO static IP assignment in config needs sed
 ssh_copy mailsrv/unbound.conf 10
 ssh_copy 'mailsrv/*.zone' 10
 

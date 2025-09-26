@@ -214,11 +214,12 @@ permit nopass lab
 BOT
 
 echo "#!/bin/sh" > /etc.rc.local
-echo "echo Running installation..." >> /etc/rc.local
+echo "echo ' running installation.'" >> /etc/rc.local
 echo "if [ -e /home/lab/doinstall.sh ]; then" >> /etc/rc.local
 echo "   # if there is a "doinstall.sh" script, run once" >> /etc/rc.local
 echo "   /bin/sh /home/lab/doinstall.sh > /var/log/doinstall.log" >> /etc/rc.local
 echo "   rm -f /home/lab/doinstall.sh" >> /etc/rc.local
+echo "   /sbin/poweroff" >> /etc/rc.local
 echo "fi" >> /etc/rc.local
 
 chmod 755 /etc/rc.local
@@ -243,6 +244,7 @@ gen_media()
 
 ssh_copy()
 {
+    # TODO add variable instead of IP
     scp -o ConnectionAttempts=50 -o ConnectTimeout=3600 \
 	-o StrictHostKeyChecking=no \
 	-i .ssh/id_ecdsa $1 lab@10.193.167.$2:
