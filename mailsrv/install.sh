@@ -691,7 +691,7 @@ echo Setup completed.
 #
 # Back up clamav db
 #
-tar -C /var/db/clamav -cJf clamav.tar.xz .
+tar -C /var/db/clamav -cJf /home/lab/clamav.tar.xz .
 
 tar cvf /home/lab/mailsrv.pkg-cache.tar -C /var/cache/pkg .
 rm -f /home/lab/mailsrv.pkg-cache.tar.xz
