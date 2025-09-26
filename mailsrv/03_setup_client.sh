@@ -18,7 +18,7 @@ gen_user()
     fi
 }
 
-if [ -e client.pkg-cache.tar.xz ]; then
+if [ -e /home/lab/client.pkg-cache.tar.xz ]; then
     mkdir -p /var/cache/pkg
     tar -C /var/cache/pkg -xvf client.pkg-cache.tar.xz
 fi
@@ -34,7 +34,7 @@ if [ ! -e /usr/local/etc/ssl/cert.pem.ca ]; then
     cat /home/lab/ca.crt >> /usr/local/etc/ssl/cert.pem
     cat /home/lab/ca.crt >> /etc/ssl/cert.pem
 fi
-install -m 0444 ca.crt /usr/share/certs/trusted/NY_Central.pem
+install -m 0444 /home/lab/ca.crt /usr/share/certs/trusted/NY_Central.pem
 certctl trust /home/lab/ca.crt
 openssl rehash /etc/ssl/certs
 certctl rehash

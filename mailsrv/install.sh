@@ -16,6 +16,10 @@ pkg -y
 # Break on failure
 set -e
 
+if [ -e /usr/local/bin/cyrus ]; then
+    exit 0
+fi
+
 if [ -e /home/lab/mailsrv.pkg-cache.tar.xz ]; then
     mkdir -p /var/cache/pkg
     tar -C /var/cache/pkg -xf /home/lab/mailsrv.pkg-cache.tar.xz

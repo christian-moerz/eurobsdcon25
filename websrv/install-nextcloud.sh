@@ -25,6 +25,11 @@ DBUSER=nextcloud
 DBPASS=nextpass
 ADMINPASS=admin.pass!1
 
+if [ -e cloud.pkg-cache.tar.xz ]; then
+    mkdir -p /var/cache/pkg
+    tar -C /var/cache/pkg -xf cloud.pkg-cache.tar.xz
+fi
+
 #
 # Install a database and a web server with PHP
 #
@@ -375,7 +380,7 @@ fi
 su -m www -c "/usr/local/bin/php /usr/local/www/nextcloud/occ \
    app:enable twofactor_totp"
 
-tar cvf /home/lab/cloud.pkg-cache.tar -C /var/cachep/pkg .
+tar cvf /home/lab/cloud.pkg-cache.tar -C /var/cache/pkg .
 rm -fr /home/lab/cloud.pkg-cache.tar.xz
 xz /home/lab/cloud.pkg-cache.tar
 chown lab:lab /home/lab/cloud.pkg-cache.tar.xz
