@@ -16,9 +16,9 @@ pkg -y
 # Break on failure
 set -e
 
-if [ -e mailsrv.pkg-cache.tar.xz ]; then
+if [ -e /home/lab/mailsrv.pkg-cache.tar.xz ]; then
     mkdir -p /var/cache/pkg
-    tar -C /var/cache/pkg -xf mailsrv.pkg-cache.tar.xz
+    tar -C /var/cache/pkg -xf /home/lab/mailsrv.pkg-cache.tar.xz
 fi
 
 #
@@ -236,7 +236,7 @@ sed -i '' 's@  pop3@#  pop3@g' ${CYRCNF}
 # sed -i '' 's@#autocreate_quota: -1@autocreate_quota: 1@g' ${IMAP}
 
 # Generate dhparams
-if [ ! -e dhparams.pem ]; then
+if [ ! -e /home/lab/dhparams.pem ]; then
     openssl dhparam -out /home/lab/dhparams.pem 4096
 fi
 install -m 0644 /home/lab/dhparams.pem /usr/local/etc/ssl/dhparams.pem
@@ -304,6 +304,7 @@ service postfix restart
 #
 # STunnel
 # wraps a TLS connection around the available daemons
+# TODO take this out
 #
 
 # Install stunnel config
@@ -627,6 +628,7 @@ set -e
 
 mkdir -p /usr/local/etc/opendkim
 
+# TODO static ip reference!
 sed -i '' "s@Domain[\\t ]*example.com@Domain ${DOMAIN}@g" ${DKIMCF}
 sed -i '' "s@KeyFile[\\t ]*/var/db/dkim/example.private@#KeyFile /var/db/dkim/example.private\\
 KeyTable refile:/usr/local/etc/opendkim/keytable@g" ${DKIMCF}
