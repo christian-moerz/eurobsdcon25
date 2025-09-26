@@ -32,3 +32,8 @@ rm -f /etc/jail.conf.d/${JAILNAME}.conf
 
 # remove jail from activation list
 sysrc jail_list-="${JAILNAME}"
+
+# remove from .ssh/known_hosts
+IP=$(cat /etc/hosts|grep ${JAILNAME} | awk '{print $1}')
+sed -i '' "/${IP}/d" /root/.ssh/known_hosts
+sed -i '' "/${JAILNAME}/d" /root/.ssh/known_hosts

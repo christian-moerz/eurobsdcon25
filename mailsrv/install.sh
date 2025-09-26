@@ -375,10 +375,10 @@ chown -R spamd /var/maiad
 sysrc clamav_freshclam_enable=YES
 sysrc clamav_clamd_enable=YES
 
-if [ -e clamav.tar.xz ]; then
+if [ -e /home/lab/clamav.tar.xz ]; then
     # should speed up setup, if we provide current
     # signatures via tar instead of downloading
-    tar -C /var/db/clamav -xf clamav.tar.xz
+    tar -C /var/db/clamav -xf /home/lab/clamav.tar.xz
 fi
 
 # Start services
